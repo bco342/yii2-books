@@ -1,0 +1,9 @@
+actor: UnitTester
+modules:
+    enabled:
+        - Asserts
+        - \Helper\Unit
+        - Yii2:
+            configFile: 'config/test.php'
+            cleanup: false
+            part: [orm, email, fixtures]

@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $booksDataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->full_name;
-$this->params['breadcrumbs'][] = ['label' => 'Authors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t(  'app', 'Authors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="author-view">
@@ -18,28 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if (!Yii::$app->user->isGuest): ?>
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            <?= Html::a(Yii::t(  'app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t(  'app', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => Yii::t(  'app', 'Are you sure you want to delete this item?'),
                     'method' => 'post',
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::a('Subscribe', ['/subscription', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t(  'app', 'Subscribe'), ['/subscription', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'full_name',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
-
-    <h2>Books by <?= Html::encode($model->full_name) ?></h2>
+    <h2><?= Yii::t(  'app', 'Books by ') ?><?= Html::encode($model->full_name) ?></h2>
 
     <?= GridView::widget([
         'dataProvider' => $booksDataProvider,

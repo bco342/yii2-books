@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 
 /**
  * This is the model class for table "book_authors".
@@ -56,5 +57,24 @@ class BookAuthors extends ActiveRecord
     public function getBook(): ActiveQuery
     {
         return $this->hasOne(Book::class, ['id' => 'book_id']);
+    }
+
+    /**
+     * @param $bookId
+     * @param $authorIds
+     * @return void
+     * @throws Exception
+     */
+    public static function updateAuthors($bookId, $authorIds): void
+    {
+        static::deleteAll(['book_id' => $bookId]);
+
+        foreach ($authorIds as $authorId) {
+            $bookAuthor = new static([
+                'book_id' => $bookId,
+                'author_id' => $authorId,
+            ]);
+            $bookAuthor->save();
+        }
     }
 }

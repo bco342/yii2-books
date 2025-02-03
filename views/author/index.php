@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Authors';
+$this->title = Yii::t(  'app', 'Authors');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="author-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if (!Yii::$app->user->isGuest): ?>
     <p>
-        <?= Html::a('Create Author', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t(  'app', 'Create Author'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php endif; ?>
 
@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             '<span class="glyphicon glyphicon-bell"></span>',
                             ['subscribe', 'id' => $model->id],
                             [
-                                'title' => 'Subscribe',
+                                'title' => Yii::t(  'app', 'Subscribe'),
                                 'data-method' => 'post',
-                                'data-confirm' => 'Are you sure you want to subscribe to this author?'
+                                'data-confirm' => Yii::t(  'app', 'Are you sure you want to subscribe to this author?')
                             ]
                         );
                     },

@@ -18,6 +18,8 @@ class m250131_140853_create_authors_table extends Migration
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
+
+        $this->createIndex('idx_books_created_at', '{{%authors}}', 'created_at');
     }
 
     /**

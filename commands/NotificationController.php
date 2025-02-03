@@ -2,16 +2,11 @@
 
 namespace app\commands;
 
-use app\models\Author;
-use app\models\Book;
 use app\models\Notification;
-use app\models\Subscription;
 use app\services\SmsService;
-use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\db\Exception;
-use yii\helpers\Json;
 
 class NotificationController extends Controller
 {

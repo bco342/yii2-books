@@ -18,9 +18,9 @@ class m250131_140856_create_subscriptions_table extends Migration
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'PRIMARY KEY(guest_phone, author_id)',
         ]);
-        
+
         // Add unique index for guest_phone
-        $this->createIndex('idx-subscription-guest_phone', '{{%subscriptions}}', 'guest_phone');    
+        $this->createIndex('idx-subscription-guest_phone', '{{%subscriptions}}', 'guest_phone');
 
         // add foreign key for table `{{%authors}}`
         $this->addForeignKey(

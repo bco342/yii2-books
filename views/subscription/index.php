@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
 
-            <?= $form->field($model, 'guestPhone')->textInput(['autofocus' => true, 'type' => 'tel']) ?>
+            <?= $form->field($model, 'guestPhone')->textInput(['autofocus' => true, 'type' => 'tel', 'pattern'=>'+[7]-[0-9]{3}-[0-9]{7}']) ?>
 
             <div class="form-group">
                 <div>

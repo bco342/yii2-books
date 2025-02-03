@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\Book;
-use Yii;
 use yii\web\Controller;
 use yii\data\ArrayDataProvider;
 use app\models\Author;

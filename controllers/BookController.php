@@ -7,7 +7,6 @@ use app\models\Book;
 use app\models\Author;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -90,8 +89,9 @@ class BookController extends Controller
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
             $model->image = UploadedFile::getInstance($model, 'image');
             if ($model->image) {
-                $model->image->saveAs('uploads/' . $model->image->baseName . '.' . $model->image->extension);
-                $model->image = 'uploads/' . $model->image->baseName . '.' . $model->image->extension;
+                $filePath = 'uploads/' . $model->image->baseName . '.' . $model->image->extension;
+                $model->image->saveAs($filePath);
+                $model->image = '/' . $filePath;
             }
             
             if ($model->save()) {
@@ -117,10 +117,11 @@ class BookController extends Controller
         $model = $this->findModel($id);
 
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
-            $model->image = UploadedFile::getInstance($model, 'image');
-            if ($model->image) {
-                $model->image->saveAs('uploads/' . $model->image->baseName . '.' . $model->image->extension);
-                $model->image = 'uploads/' . $model->image->baseName . '.' . $model->image->extension;
+            $image = UploadedFile::getInstance($model, 'image');
+            if ($image) {
+                $filePath = 'uploads/' . $image->baseName . '.' . $image->extension;
+                $image->saveAs($filePath);
+                $model->setAttribute('image', '/' . $filePath);
             }
             
             if ($model->save()) {

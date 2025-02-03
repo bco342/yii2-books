@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Books';
+$this->title = Yii::t(  'app', 'Books');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if (!Yii::$app->user->isGuest): ?>
     <p>
-        <?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t(  'app', 'Create Book'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php endif; ?>
 
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'format' => 'html',
                 'value' => function($model) {
-                    return $model->image ? Html::img('@web/' . $model->image, ['width' => '100px']) : '';
+                    return $model->image ? Html::img($model->image, ['width' => '100px']) : '';
                 }
             ],
             [

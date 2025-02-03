@@ -26,6 +26,8 @@ use yii\db\Expression;
  */
 class Book extends ActiveRecord
 {
+    private array $_authors = [];
+
     /**
      * {@inheritdoc}
      */
@@ -60,6 +62,7 @@ class Book extends ActiveRecord
             [['isbn'], 'string', 'max' => 13],
             [['isbn'], 'unique'],
             [['image'], 'string', 'max' => 255],
+            [['authors'], 'safe'],
         ];
     }
 
@@ -82,30 +85,17 @@ class Book extends ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @throws InvalidConfigException|Exception
+     * @throws Exception
      */
     public function afterSave($insert, $changedAttributes): void
     {
         parent::afterSave($insert, $changedAttributes);
 
-        if ($insert) {
-            $subscriptions = Subscription::find()
-                ->with(['author'])
-                ->andWhere(['author.id' => $this->getAuthorIds()])
-                ->all();
-            if (!empty($subscriptions)) {
-                /** @var $subscription Subscription */
-                foreach ($subscriptions as $subscription) {
-                    $notification = new Notification([
-                        'status' => Notification::STATUS_ACTIVE,
-                        'to' => $subscription->guest_phone,
-                        'message' => Yii::t('app', "New book: {title} by {author}", [
-                            'title' => $this->title,
-                            'author' => $subscription->author->full_name,
-                        ]),
-                    ]);
-                    $notification->save();
-                }
+        if (!empty($this->_authors)) {
+            BookAuthors::updateAuthors($this->id, $this->_authors);
+
+            if ($insert) {
+                Notification::addedNewBook($this->title, $this->_authors);
             }
         }
     }
@@ -123,6 +113,17 @@ class Book extends ActiveRecord
     }
 
     /**
+     * Sets authors for the book on create new or update one.
+     * @param array $value authors' IDs
+     */
+    public function setAuthors($value): void
+    {
+        if (is_array($value)) {
+            $this->_authors = $value;
+        }
+    }
+
+    /**
      * Gets a list of existed years in descending order.
      *
      * @return array
@@ -130,13 +131,5 @@ class Book extends ActiveRecord
     public static function getYears(): array
     {
         return self::find()->select('year')->distinct()->orderBy('year DESC')->column();
-    }
-
-    /**
-     * @throws InvalidConfigException
-     */
-    private function getAuthorIds(): array
-    {
-        return $this->getAuthors()->select('id')->column();
     }
 }

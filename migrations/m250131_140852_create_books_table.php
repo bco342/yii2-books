@@ -22,6 +22,9 @@ class m250131_140852_create_books_table extends Migration
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
+
+        $this->createIndex('idx_books_year', '{{%books}}', 'year');
+        $this->createIndex('idx_books_created_at', '{{%books}}', 'created_at');
     }
 
     /**

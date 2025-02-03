@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 use yii\db\Expression;
 
 /**
@@ -53,5 +54,33 @@ class Notification extends ActiveRecord
             [['to', 'message', 'status'], 'string'],
             [['status'], 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_SUCCESS, self::STATUS_FAILED]],
         ];
+    }
+
+    /**
+     * @param Book $book
+     * @param array $authorIds
+     * @return void
+     * @throws Exception
+     */
+    public static function addedNewBook(string $bookTitle, array $authorIds): void
+    {
+        $subscriptions = Subscription::find()
+            ->joinWith(['author'])
+            ->andWhere([Author::tableName() . '.id' => $authorIds])
+            ->all();
+        if (!empty($subscriptions)) {
+            /** @var $subscription Subscription */
+            foreach ($subscriptions as $subscription) {
+                $notification = new static([
+                    'status' => static::STATUS_ACTIVE,
+                    'to' => $subscription->guest_phone,
+                    'message' => Yii::t('app', "New book: {title} by {author}", [
+                        'title' => $bookTitle,
+                        'author' => $subscription->author->full_name,
+                    ]),
+                ]);
+                $notification->save();
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
+use app\widgets\Alert;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -63,6 +64,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         </div>
     </nav>
 </header>
+
+<?= Alert::widget() ?>
 
 <main role="main" class="flex-shrink-0">
     <div class="container">

@@ -86,3 +86,9 @@ a.desc:after {
 .form-group {
     margin-bottom: 1rem;
 }
+
+.alert {
+    position: absolute;
+    top: 60px;
+    right: 5px;
+}

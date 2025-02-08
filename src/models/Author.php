@@ -28,7 +28,7 @@ final class Author extends ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'authors'; 
+        return 'authors';
     }
 
     /**

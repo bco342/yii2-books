@@ -67,17 +67,17 @@ final class Subscription extends ActiveRecord
         if (empty($cleaned)) {
             return '';
         }
-        
+
         // If number starts with 8, replace it with 7
         if ($cleaned[0] === '8') {
             $cleaned = '7' . substr($cleaned, 1);
         }
-        
+
         // If number doesn't start with 7, add it
         if ($cleaned[0] !== '7') {
             $cleaned = '7' . $cleaned;
         }
-        
+
         return '+' . $cleaned;
     }
 

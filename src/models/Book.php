@@ -9,6 +9,7 @@ use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Exception;
 use yii\db\Expression;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "books".
@@ -80,6 +81,7 @@ final class Book extends ActiveRecord
             'image' => Yii::t('app', 'Image'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'authors' => Yii::t('app', 'Authors'),
         ];
     }
 
@@ -131,5 +133,25 @@ final class Book extends ActiveRecord
     public static function getYears(): array
     {
         return self::find()->select('year')->distinct()->orderBy('year DESC')->column();
+    }
+
+    /**
+     * @param Book $model
+     * @return bool
+     */
+    public function saveImage(): bool
+    {
+        $image = UploadedFile::getInstance($this, 'image');
+        if ($image) {
+            $filePath = 'uploads/' . $this->isbn . '.' . $image->extension;
+            $image->saveAs($filePath);
+            $this->image = '/' . $filePath;
+            return true;
+        } elseif (!empty($this->oldAttributes['image'])) {
+            $this->image = $this->oldAttributes['image'];
+            return true;
+        }
+        $this->addError('image', 'Image is not uploaded');
+        return false;
     }
 }

@@ -67,14 +67,22 @@ final class BookAuthors extends ActiveRecord
      */
     public static function updateAuthors($bookId, $authorIds): void
     {
-        static::deleteAll(['book_id' => $bookId]);
+        $oldAuthorIds = static::find()->select('author_id')->where(['book_id' => $bookId])->column();
 
-        foreach ($authorIds as $authorId) {
-            $bookAuthor = new static([
-                'book_id' => $bookId,
-                'author_id' => $authorId,
-            ]);
-            $bookAuthor->save();
+        $newAuthorIds = array_diff($authorIds, $oldAuthorIds);
+        if (!empty($newAuthorIds)) {
+            foreach ($newAuthorIds as $authorId) {
+                $bookAuthor = new static([
+                    'book_id' => $bookId,
+                    'author_id' => $authorId,
+                ]);
+                $bookAuthor->save();
+            }
+        }
+
+        $authorsToDelete = array_diff($oldAuthorIds, $authorIds);
+        if (!empty($authorsToDelete)) {
+            static::deleteAll(['book_id' => $bookId, 'author_id' => $authorsToDelete]);
         }
     }
 }

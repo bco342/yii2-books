@@ -17,7 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="subscription">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p><?= Yii::t('app', 'Please fill out the following fields to subscribe to author: {author}', ['author' => $author->full_name]) ?>:</p>
+    <p><?= Yii::t('app', 'Please fill out the following fields to subscribe to author: {author}',
+            ['author' => $author->full_name]
+        ) ?>:</p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -34,7 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
 
-            <?= $form->field($model, 'guestPhone')->textInput(['autofocus' => true, 'type' => 'tel', 'pattern'=>'+[7]-[0-9]{3}-[0-9]{7}']) ?>
+            <?= $form->field($model, 'guestPhone')->textInput(
+                ['autofocus' => true, 'type' => 'tel', 'pattern' => '+[7]-[0-9]{3}-[0-9]{7}']
+            ) ?>
 
             <div class="form-group">
                 <div>

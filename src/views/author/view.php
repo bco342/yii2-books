@@ -9,7 +9,10 @@ use yii\grid\GridView;
 /* @var $booksDataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->full_name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t(  'app', 'Authors'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('app', 'Authors'),
+    'url' => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="author-view">
@@ -18,19 +21,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if (!Yii::$app->user->isGuest): ?>
-            <?= Html::a(Yii::t(  'app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a(Yii::t(  'app', 'Delete'), ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => Yii::t(  'app', 'Are you sure you want to delete this item?'),
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?= Html::a(Yii::t('app', 'Update'),
+                ['update', 'id' => $model->id],
+                ['class' => 'btn btn-primary']
+            ) ?>
+            <?= Html::a(Yii::t('app', 'Delete'),
+                ['delete', 'id' => $model->id],
+                [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ],
+                ]
+            ) ?>
         <?php endif; ?>
-        <?= Html::a(Yii::t(  'app', 'Subscribe'), ['/subscription', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Subscribe'),
+            ['/subscription', 'id' => $model->id],
+            ['class' => 'btn btn-success']
+        ) ?>
     </p>
 
-    <h2><?= Yii::t(  'app', 'Books by ') ?><?= Html::encode($model->full_name) ?></h2>
+    <h2>
+        <?= Yii::t('app', 'Books by ') ?>
+        <?= Html::encode($model->full_name) ?>
+    </h2>
 
     <?= GridView::widget([
         'dataProvider' => $booksDataProvider,
@@ -41,8 +56,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'image',
                 'format' => 'html',
-                'value' => function($model) {
-                    return $model->image ? Html::img('@web/' . $model->image, ['width' => '100px']) : '';
+                'value' => function ($model) {
+                    return $model->image
+                        ? Html::img('@web/' . $model->image, ['width' => '100px'])
+                        : '';
                 }
             ],
         ],

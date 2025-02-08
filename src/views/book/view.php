@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Book */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t(  'app', 'Books'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Books'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-view">
@@ -15,16 +15,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (!Yii::$app->user->isGuest): ?>
-    <p>
-        <?= Html::a(Yii::t(  'app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t(  'app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t(  'app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+        <p>
+            <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </p>
     <?php endif; ?>
 
     <?= DetailView::widget([
@@ -36,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'isbn',
             [
                 'attribute' => 'authors',
-                'label' => Yii::t(  'app', 'Authors'),
-                'value' => implode(', ', array_map(function($author) {
+                'label' => Yii::t('app', 'Authors'),
+                'value' => implode(', ', array_map(function ($author) {
                     return $author->full_name;
                 }, $model->authors)),
             ],

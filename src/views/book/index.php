@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t(  'app', 'Books');
+$this->title = Yii::t('app', 'Books');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
@@ -14,9 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (!Yii::$app->user->isGuest): ?>
-    <p>
-        <?= Html::a(Yii::t(  'app', 'Create Book'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <?= Html::a(
+            Yii::t('app', 'Create Book'),
+            ['create'],
+            ['class' => 'btn btn-success']
+        ) ?>
     <?php endif; ?>
 
     <?= GridView::widget([
@@ -28,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'authors',
                 'value' => function ($model) {
-                    return implode(', ', array_map(function($author) {
+                    return implode(', ', array_map(function ($author) {
                         return $author->full_name;
                     }, $model->authors));
                 },
@@ -36,8 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'image',
                 'format' => 'html',
-                'value' => function($model) {
-                    return $model->image ? Html::img($model->image, ['width' => '100px']) : '';
+                'value' => function ($model) {
+                    return $model->image ? Html::img($model->image,
+                        ['width' => '100px']
+                    ) : '';
                 }
             ],
             [

@@ -11,7 +11,7 @@ class SubscriptionTest extends Unit
      * @var \UnitTester
      */
     protected $tester;
-    
+
     /**
      * @var Subscription
      */
@@ -57,7 +57,7 @@ class SubscriptionTest extends Unit
     public function testValidationWithFormattedNumber()
     {
         $this->subscription->guest_phone = '8 (999) 123-45-67';
-        
+
         $this->subscription->validate(['guest_phone']);
         $this->assertEquals('+79991234567', $this->subscription->guest_phone);
     }
@@ -87,7 +87,7 @@ class SubscriptionTest extends Unit
             $this->assertEquals('+79991234567', $subscription->guest_phone);
         }
     }
-    
+
     public function testPhoneLengthValidation()
     {
         $subscription = new Subscription();
@@ -101,7 +101,7 @@ class SubscriptionTest extends Unit
 
         // Test with valid phone number
         $subscription->guest_phone = '+79876543210';
-        
+
         $subscription->validate(['guest_phone']);
         $this->assertEquals('+79876543210', $subscription->guest_phone);
     }

@@ -86,17 +86,12 @@ class BookController extends Controller
     {
         $model = new Book();
 
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
-            $model->image = UploadedFile::getInstance($model, 'image');
-            if ($model->image) {
-                $filePath = 'uploads/' . $model->image->baseName . '.' . $model->image->extension;
-                $model->image->saveAs($filePath);
-                $model->image = '/' . $filePath;
-            }
-            
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if (Yii::$app->request->isPost
+            && $model->load(Yii::$app->request->post())
+            && $model->saveImage()
+            && $model->save()
+        ) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -116,17 +111,12 @@ class BookController extends Controller
     {
         $model = $this->findModel($id);
 
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
-            $image = UploadedFile::getInstance($model, 'image');
-            if ($image) {
-                $filePath = 'uploads/' . $image->baseName . '.' . $image->extension;
-                $image->saveAs($filePath);
-                $model->setAttribute('image', '/' . $filePath);
-            }
-            
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if (Yii::$app->request->isPost
+            && $model->load(Yii::$app->request->post())
+            && $model->saveImage()
+            && $model->save()
+        ) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

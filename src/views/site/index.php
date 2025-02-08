@@ -20,9 +20,15 @@ $this->title = Yii::t('app', 'Book Management System');
                 <div class="d-flex justify-content-between align-items-center">
                     <h2><?= Yii::t('app', 'Latest Books') ?></h2>
                     <div>
-                        <?= Html::a(Yii::t('app', 'Reports'), ['/report'], ['class' => 'btn btn-outline-primary']) ?>
+                        <?= Html::a(Yii::t('app', 'Reports'),
+                            ['/report'],
+                            ['class' => 'btn btn-outline-primary']
+                        ) ?>
                         <?php if (!Yii::$app->user->isGuest): ?>
-                            <?= Html::a(Yii::t('app', 'Add new book'), ['/book/create'], ['class' => 'btn btn-outline-success ml-2']) ?>
+                            <?= Html::a(Yii::t('app', 'Add new book'),
+                                ['/book/create'],
+                                ['class' => 'btn btn-outline-success ml-2']
+                            ) ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -33,9 +39,7 @@ $this->title = Yii::t('app', 'Book Management System');
             'dataProvider' => $dataProvider,
             'itemView' => '_book_item',
             'layout' => '<div class="row">{items}</div>{pager}',
-            'itemOptions' => [
-                'class' => 'col-md-3 mb-4'
-            ],
+            'itemOptions' => ['class' => 'col-md-3 mb-4'],
         ]) ?>
     </div>
 </div>

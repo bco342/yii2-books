@@ -5,8 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Author */
 
-$this->title = Yii::t(  'app', 'Create Author');
-$this->params['breadcrumbs'][] = ['label' => Yii::t(  'app', 'Authors'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Author');
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('app', 'Authors'),
+    'url' => ['index']
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="author-create">

@@ -108,7 +108,7 @@ class DatabaseSeeder
             $usersCount++;
         }
 
-        for ($i=1; $i < $count; $i++) {
+        for ($i = 1; $i < $count; $i++) {
             if ($this->createUser($this->faker->userName(), 'password123')) {
                 $usersCount++;
             }
@@ -125,7 +125,7 @@ class DatabaseSeeder
         $authorIds = [];
         $usedAuthors = [];
 
-        for ($i=0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $gender = $this->faker->randomElement(['male', 'male', 'female']);
 
             do {
@@ -156,7 +156,7 @@ class DatabaseSeeder
         $numAuthorsLimit = min(3, count($authors));
         $bookIds = [];
 
-        for ($i=0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $book = new Book([
                 'title' => $this->generateCarBookTitle(),
                 'description' => $this->faker->realText(200),
